@@ -1,8 +1,5 @@
-import { createStore } from 'vuex';
-import number from './state/num.state';
-import userInfo from './state/userInfo.state';
-
-export default createStore({
+export default {
+  namespaced: true,
   // 全局初始状态
   state: {
     count: 1,
@@ -32,9 +29,4 @@ export default createStore({
       });
     },
   },
-  // 数据多的时候分类分模块
-  modules: {
-    number,
-    userInfo,
-  },
-});
+};

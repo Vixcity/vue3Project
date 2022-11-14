@@ -32,26 +32,40 @@
       >
         <el-input type="password" v-model="loginData.password" />
       </el-form-item>
-      <el-button type="primary" class="center"> 登录</el-button>
+      <el-button type="primary" class="center" @click="login"> 登录</el-button>
     </el-form>
   </div>
 </template>
 
 <script>
 import { reactive, toRefs } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'login',
   setup() {
+    const store = useStore();
+    const router = useRouter();
+    const { count } = store.state.number;
     const data = reactive({
       loginData: {
         account: '',
         password: '',
       },
+      num: count,
+      numStatus: store.getters['number/countStatus'],
     });
+
+    const login = () => {
+      store.commit('userInfo/setUserInfo', data.loginData);
+      // 跳转
+      router.push('/userList');
+    };
 
     return {
       ...toRefs(data),
+      login,
     };
   },
 };
